@@ -9,3 +9,18 @@ into JSON, filtering on RHEL5, English only.
 
 It's up to the user to select the newest firmware and apply it ;)
 
+
+Output data:
+------------
+
+"sw_keys" seems to be what HP uses to identify the hardware component.
+Different firmware updates for the same hardware component will carry the same
+sw_keys.
+
+Known components <-> sw_keys:
+  * RAID controllers: PCI ID
+  * System ROM: some ID
+  * ILO: some ID
+  * Power Management Controllers: "PowerPIC-*"
+  * Hard drives: Vendor ID (e.g. "ST31000340NS")
+
