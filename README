@@ -1,0 +1,11 @@
+HP ProLiant Firmware Update JSON Formatter
+------------------------------------------
+
+Checking manually for new firmware updates is tedious work. This is the first 
+step in automating this task.
+
+Currently, Makefile downloads the current catalog XML, and then transforms it
+into JSON, filtering on RHEL5, English only.
+
+It's up to the user to select the newest firmware and apply it ;)
+
