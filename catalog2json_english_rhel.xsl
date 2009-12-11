@@ -22,7 +22,7 @@
 	<xsl:if test="operating_systems/operating_system/@key = '1145' or 
                     operating_systems/operating_system/@key = '1147' 
 		">
-		<xsl:if test="languages/languages_xlate[@lang='en'] = 'English (US)'">
+		<xsl:if test="contains(languages/languages_xlate[@lang='en'],'English (US)')">
 			<xsl:if test="sw_keys//sw_key/@name">
 				<xsl:call-template name="print_package"/>
 			</xsl:if>
