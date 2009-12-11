@@ -8,7 +8,7 @@
 		* An sw_key must be present
 -->
 <xsl:output method="text"/>
-<xsl:template match="/">
+<xsl:template match="/">/* time_stamp: <xsl:value-of select="catalog/@time_stamp"/> */
 [
 <xsl:for-each select="catalog/cpq_package">
 	<xsl:sort select="translate(sw_keys//sw_key/@name, '&#34;', '')" order="ascending"/>
