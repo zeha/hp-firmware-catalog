@@ -8,8 +8,9 @@
 		* An sw_key must be present
 -->
 <xsl:output method="text"/>
-<xsl:template match="/">/* time_stamp: <xsl:value-of select="catalog/@time_stamp"/> */
-[
+<xsl:template match="/">{
+"time_stamp": "<xsl:value-of select="catalog/@time_stamp"/>",
+"entries": [
 <xsl:for-each select="catalog/cpq_package">
 	<xsl:sort select="translate(sw_keys//sw_key/@name, '&#34;', '')" order="ascending"/>
 	<xsl:sort select="release_date/@year" order="ascending" data-type="number" />
@@ -29,15 +30,16 @@
 		</xsl:if>
 	</xsl:if>
     </xsl:for-each>
-]
+    {}
+] }
 </xsl:template>
 <xsl:template name="print_package">{
-	sw_keys: "<xsl:value-of select="translate(sw_keys//sw_key/@name, '&#34;', '')"/>",
-	reldate: "<xsl:value-of select="format-number(release_date/@year,'####')" />/<xsl:value-of select="format-number(release_date/@month,'00')" />/<xsl:value-of select="format-number(release_date/@day,'00')" />",
-	version: "<xsl:value-of select="version/@value"/>",
-	name: "<xsl:value-of select="name/name_xlate[@lang='en']" />",
-	filename: "<xsl:value-of select="filename"/>",
-	url: "<xsl:value-of select="catalog_entry_path"/>",
+	"sw_keys": "<xsl:value-of select="translate(sw_keys//sw_key/@name, '&#34;', '')"/>",
+	"reldate": "<xsl:value-of select="format-number(release_date/@year,'####')" />/<xsl:value-of select="format-number(release_date/@month,'00')" />/<xsl:value-of select="format-number(release_date/@day,'00')" />",
+	"version": "<xsl:value-of select="version/@value"/>",
+	"name": "<xsl:value-of select="name/name_xlate[@lang='en']" />",
+	"filename": "<xsl:value-of select="filename"/>",
+	"url": "<xsl:value-of select="catalog_entry_path"/>"
 },
 </xsl:template>
 </xsl:stylesheet>
