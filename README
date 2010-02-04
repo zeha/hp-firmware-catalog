@@ -9,6 +9,7 @@ into JSON, filtering on RHEL5, English only.
 
 It's up to the user to select the newest firmware and apply it ;)
 
+For licensing information, please see the file COPYING.
 
 Output data:
 ------------
