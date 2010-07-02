@@ -104,8 +104,7 @@ for i in fws:
   elif sw['type'] == 2:
     print "Info: Disk"
     ddir = os.path.join(ddir, 'disks')
-  if not os.path.exists(ddir):
-    os.path.mkdir(ddir)
+  ensure_directory(ddir)
   filename = os.path.join(ddir , ver['filename'])
   if not os.path.exists(filename):
     print "Downloading %s" % filename
