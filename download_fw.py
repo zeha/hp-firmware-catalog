@@ -69,6 +69,7 @@ def download(filename, url):
   curl_opts.append(url)
   if subprocess.call(curl_opts) != 0:
     return 1
+  os.chmod(filename, 0755)
   return 0
 
 ensure_directory(fwdir)
