@@ -1,6 +1,11 @@
 #!/usr/bin/python
 
-import json,sys,os,subprocess
+try:
+	import json
+except:
+	import simplejson as json
+
+import sys,os,subprocess
 from datetime import datetime
 
 # fw contains the firmware and further informations
@@ -66,6 +71,8 @@ def download(filename, url):
     return 1
   return 0
 
+ensure_directory(fwdir)
+
 # generate list
 f = file('catalog.json')
 x = json.load(f)
@@ -82,14 +89,13 @@ inv = open(os.path.join(fwdir, 'inventory'),"w")
 inv.write('Firmware Inventory File\n')
 inv.write('Updated %s\n\n' % datetime.strftime(datetime.today(),'%Y/%m/%d-%H:%M:%S'));
 
-os.chdir(fwdir)
 for i in fws:
   ddir=fwdir
   sw = fws[i]
   try:
     ver = sw['version']
   except KeyError:
-    print "Warning: no Verion informations found for %s" % i
+    print "Warning: no Version informations found for %s" % i
     continue
   print
   print "--> Processing %s" % i
@@ -102,10 +108,9 @@ for i in fws:
     print " Ourname: %s" % sw['ourname'] if sw.has_key('ourname') else '-'
     continue
   elif sw['type'] == 2:
-    print "Info: Disk"
     ddir = os.path.join(ddir, 'disks')
   ensure_directory(ddir)
-  filename = os.path.join(ddir , ver['filename'])
+  filename = os.path.join(ddir, ver['filename'])
   if not os.path.exists(filename):
     print "Downloading %s" % filename
     if (download(filename, ver['url'])):
@@ -114,16 +119,6 @@ for i in fws:
   updateinventory(inv, i)
   if sw.has_key('ourname'):
     link = os.path.join(ddir,sw['ourname'])
-    print "Info: Checking link (%s)" % link
-    if os.path.lexists(link):
-      oldlink =  os.path.realpath(link)
-      if (oldlink != filename):
-        print "Info: Removing old link to %s" % (oldlink)
-        os.unlink(link)
-      else:
-        print "Done"
-        continue
-    print "Info: Creating new link (%s -> %s)" % (link, filename)
-    os.symlink(filename, link)
-  print "Done"
+    if os.path.lexists(link): os.unlink(link)
+    os.symlink(ver['filename'], link)
 print "Finished."
