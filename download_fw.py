@@ -12,16 +12,16 @@ from datetime import datetime
 # structure
 # Key: ['OurLinkedName', flag]
 # types:
-# - 0 don't download automatically - key not uniq!
+# - 0 don't download automatically - key not unique!
 # - 1 autoupdate - keys are uniq and can be used
 # - 2 Disk - handled special
 
 fwdir = './firmware'
 
-fws={
+fws = {
+       'PowerPIC-Electra': {'ourname': 'DL3xxGx_POWERMGMT.scexe', 'type': 0},
        # G6
        'P64': {'ourname': 'DL360G6_BIOS.scexe', 'type': 1},
-       'PowerPIC-Electra': {'ourname': 'DL3xxGx_POWERMGMT.scexe', 'type': 0},
        'PIC24K20': {'ourname': 'DL360G6_BACKPLANE.scexe', 'type': 1},
        # G5
        'P58': {'ourname': 'DL360G5_BIOS.scexe','type': 1},
@@ -62,7 +62,7 @@ def updateinventory(f,i):
   f.write("version : %s\n" % (ver['version']))
   f.write("url: %s\n" % (ver['url']))
   f.write("ourname: %s\n" % (fws[i]['ourname'] if fws[i].has_key('ourname') else ""))
-  f.write("=========================================================================================================")
+  f.write("=" * 79 + "\n")
 
 def download(filename, url):
   curl_opts = ["curl","-o",filename]
@@ -88,7 +88,7 @@ for i in fws:
 
 inv = open(os.path.join(fwdir, 'inventory'),"w")
 inv.write('Firmware Inventory File\n')
-inv.write('Updated %s\n\n' % datetime.strftime(datetime.today(),'%Y/%m/%d-%H:%M:%S'));
+inv.write('Updated %s\n\n' % str(datetime.today()))
 
 for i in fws:
   ddir=fwdir
