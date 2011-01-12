@@ -25,3 +25,13 @@ Known components <-> sw_keys:
   * Power Management Controllers: "PowerPIC-*"
   * Hard drives: Vendor ID (e.g. "ST31000340NS")
 
+
+Installation
+------------
+
+You will need make, xsltproc, and the python simplejson library installed on
+your system.
+
+On a Debian system install the following packages using APT:
+
+  apt-get install make python-simplejson xsltproc

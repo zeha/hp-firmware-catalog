@@ -1,4 +1,5 @@
-
+download: catalog.json
+	python download_fw.py
 
 catalog.json: catalog2json_english_rhel.xsl catalog.xml
 	xsltproc -o catalog.json catalog2json_english_rhel.xsl catalog.xml
