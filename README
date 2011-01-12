@@ -1,18 +1,25 @@
-HP ProLiant Firmware Update JSON Formatter
-------------------------------------------
+HP ProLiant Firmware Update Downloader
+--------------------------------------
 
-Checking manually for new firmware updates is tedious work. This is the first 
-step in automating this task.
+Checking manually for new firmware updates is tedious work. This is a toolset
+for automation of this process.
 
-Currently, Makefile downloads the current catalog XML, and then transforms it
-into JSON, filtering on RHEL5, English only.
+To automatically download the catalog and what the authors decided to be
+relevant firmware updates, just:
+
+  $ make download
 
 It's up to the user to select the newest firmware and apply it ;)
 
+If you need other firmware, modify download_fw.py. Also note that HP apparently
+doesn't properly tag some firmware updates, so this tool can't decide what's
+the correct newer firmware. This especially applies to the power management
+controller firmware. You'll need to download these manually.
+
 For licensing information, please see the file COPYING.
 
-Output data:
-------------
+JSON Output data (catalog.json)
+-------------------------------
 
 "sw_keys" seems to be what HP uses to identify the hardware component.
 Different firmware updates for the same hardware component will carry the same
@@ -29,9 +36,10 @@ Known components <-> sw_keys:
 Installation
 ------------
 
-You will need make, xsltproc, and the python simplejson library installed on
+You will need make, xsltproc, Python 2.6 or Python 2.5 + simplejson installed on
 your system.
 
 On a Debian system install the following packages using APT:
 
   apt-get install make python-simplejson xsltproc
+
